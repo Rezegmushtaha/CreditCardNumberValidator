@@ -1,7 +1,7 @@
 # CreditCardNumberValidator
-Tiny console app that validates Credit card numbers acc to Luhn formula
+#### Tiny console app that validates Credit card numbers acc to Luhn formula
 
-To start:
+## To start:
 
 1. Download zipped project;
 2. Under CreditCardNumberValidator/Kottans_CreditCardOperator/Kottans_CreditCardOperator/bin/Debug/ find .exe file;

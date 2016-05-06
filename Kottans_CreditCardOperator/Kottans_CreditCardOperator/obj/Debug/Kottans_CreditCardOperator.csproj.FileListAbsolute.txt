@@ -4,3 +4,9 @@ c:\users\оля\documents\visual studio 2015\Projects\Kottans_CreditCardOperator
 c:\users\оля\documents\visual studio 2015\Projects\Kottans_CreditCardOperator\Kottans_CreditCardOperator\obj\Debug\Kottans_CreditCardOperator.csprojResolveAssemblyReference.cache
 c:\users\оля\documents\visual studio 2015\Projects\Kottans_CreditCardOperator\Kottans_CreditCardOperator\obj\Debug\Kottans_CreditCardOperator.exe
 c:\users\оля\documents\visual studio 2015\Projects\Kottans_CreditCardOperator\Kottans_CreditCardOperator\obj\Debug\Kottans_CreditCardOperator.pdb
+C:\Users\Оля\Documents\Visual Studio 2015\Projects\gitted\CreditCardNumberValidator\Kottans_CreditCardOperator\Kottans_CreditCardOperator\bin\Debug\Kottans_CreditCardOperator.exe.config
+C:\Users\Оля\Documents\Visual Studio 2015\Projects\gitted\CreditCardNumberValidator\Kottans_CreditCardOperator\Kottans_CreditCardOperator\obj\Debug\Kottans_CreditCardOperator.exe
+C:\Users\Оля\Documents\Visual Studio 2015\Projects\gitted\CreditCardNumberValidator\Kottans_CreditCardOperator\Kottans_CreditCardOperator\obj\Debug\Kottans_CreditCardOperator.pdb
+C:\Users\Оля\Documents\Visual Studio 2015\Projects\gitted\CreditCardNumberValidator\Kottans_CreditCardOperator\Kottans_CreditCardOperator\bin\Debug\Kottans_CreditCardOperator.exe
+C:\Users\Оля\Documents\Visual Studio 2015\Projects\gitted\CreditCardNumberValidator\Kottans_CreditCardOperator\Kottans_CreditCardOperator\bin\Debug\Kottans_CreditCardOperator.pdb
+C:\Users\Оля\Documents\Visual Studio 2015\Projects\gitted\CreditCardNumberValidator\Kottans_CreditCardOperator\Kottans_CreditCardOperator\obj\Debug\Kottans_CreditCardOperator.csprojResolveAssemblyReference.cache

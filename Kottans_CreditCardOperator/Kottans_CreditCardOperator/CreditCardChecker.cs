@@ -117,24 +117,26 @@ namespace Kottans_CreditCardOperator
         public string GenerateNextCreditCardNumber(string input)
         {
             string goodInput = input.Trim().Replace(" ", string.Empty).Replace("\"", string.Empty);
-            if ((IsCreditCardNumberValid(goodInput) == true))
+            string myVendor = GetCreditCardVendor(goodInput);
+
             {
                 bool isValid = false;
                 Int64 inputNumeric = Int64.Parse(goodInput);
                 while (isValid == false)
                 {
                     inputNumeric++;
-                    if ((IsCreditCardNumberValid(goodInput) == true))
+                    if ((IsCreditCardNumberValid(inputNumeric.ToString()) == true))
                     {
                         isValid = true;
                     }
                 }
-                return inputNumeric.ToString();
+                if (GetCreditCardVendor(inputNumeric.ToString()) == myVendor)
+                {
+                    return inputNumeric.ToString();
+                }
+                else return "Hey! It's a valid number, but wrong vendor";
             }
-            else
-            {
-                return string.Empty;
-            }
+          
 
         }
 

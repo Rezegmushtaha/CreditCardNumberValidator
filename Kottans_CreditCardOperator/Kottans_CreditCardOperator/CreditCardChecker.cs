@@ -12,6 +12,7 @@ namespace Kottans_CreditCardOperator
 
         public string GetCreditCardVendor(string goodInput)
         {
+            int inputLength = goodInput.Length;
             int[] maestroArray = { 50, 56, 57, 58, 59, 6 }; //50, 56-69
             int[] masterCardArray = { 2221, 2222, 2223, 2224, 2225, 2226, 2227, 2228, 2229, 23, 24, 25, 26, 270, 271, 2720, 51, 52, 53, 54, 55 }; //2221 - 2720; 51-55
             int[] jcbArray = { 3528, 3529, 353, 354, 355, 356, 357, 358 }; //3528-3589
@@ -19,57 +20,57 @@ namespace Kottans_CreditCardOperator
             // Maestro 50, 56-69
             foreach (int item in maestroArray)
             {
-                if (goodInput.StartsWith(item.ToString()))
+                if ((goodInput.StartsWith(item.ToString()) && ((inputLength == 12) || (inputLength == 13) || (inputLength == 14) || (inputLength == 15) || (inputLength == 16) || (inputLength == 17) || (inputLength == 18) || (inputLength == 19))))
                 {
-                    return "You've got a Maestro card";
+                    return "Maestro";
                 }
             }
 
             //MasterCard 2221 - 2720; 51-55
             foreach (int item in masterCardArray)
             {
-                if (goodInput.StartsWith(item.ToString()))
+                if ((goodInput.StartsWith(item.ToString())) && (inputLength == 16))
                 {
-                    return "You've got a Master card";
+                    return "MasterCard";
                 }
             }
 
             //JCB 3528-3589
             foreach (int item in jcbArray)
             {
-                if (goodInput.StartsWith(item.ToString()))
+                if ((goodInput.StartsWith(item.ToString())) && (inputLength == 16))
                 {
-                    return "You've got a JCB card";
+                    return "JCB";
                 }
             }
 
             //AmExpress 34, 37
 
-            if (goodInput.StartsWith("34") || goodInput.StartsWith("37"))
-                return "You've got an American Express card";
+            if ((goodInput.StartsWith("34") || goodInput.StartsWith("37")) && (inputLength == 15))
+                return "American Express";
 
             //VISA 4
-            else if (goodInput.StartsWith("4"))
-                return "You've got a Visa card";
+            else if ((goodInput.StartsWith("4")) && ((inputLength == 13) || (inputLength == 16) || (inputLength == 19)))
+                return "VISA";
 
 
-            else return "Sorry, we cannot decipher you credit card vendor.";
+            else return "Unknown";
 
         }
         //AmEx == 15 digits <0000 000000 00000>
-        public string GetCodeFormatted(string goodInput)
-        {
-            string inputFormatted = "";
+        //public string GetCodeFormatted(string goodInput)
+        //{
+        //    string inputFormatted = "";
 
-            if (GetCreditCardVendor(goodInput) == "You've got an American Express card")
-            {
-                return inputFormatted = String.Format("{0:0000 000000 00000}", (Int64.Parse(goodInput)));
-                //  return inputFormatted = String.Format("{0:0000 000000 00000}", input);
-            }
-            else
-                return inputFormatted = String.Format("{0:0000 0000 0000 0000}", (Int64.Parse(goodInput)));
-            // return inputFormatted = String.Format("{0:0000 0000 0000 0000}", input);
-        }
+        //    if (GetCreditCardVendor(goodInput) == "You've got an American Express card")
+        //    {
+        //        return inputFormatted = String.Format("{0:0000 000000 00000}", (Int64.Parse(goodInput)));
+        //        //  return inputFormatted = String.Format("{0:0000 000000 00000}", input);
+        //    }
+        //    else
+        //        return inputFormatted = String.Format("{0:0000 0000 0000 0000}", (Int64.Parse(goodInput)));
+        //    // return inputFormatted = String.Format("{0:0000 0000 0000 0000}", input);
+        //}
         //StandardCode == 16 digits <0000 0000 0000 0000> 
         //most of Maestro cards; all Master cards; most Visa cards; all JCB.
         //So for those we'll ignore all the cards lenght deviations and will consider only standard 16-digits codes.
@@ -78,8 +79,9 @@ namespace Kottans_CreditCardOperator
         {
             double doubled;
             double sumTotal = 0;
-
+        
             char[] chars = goodInput.ToCharArray();
+           
             List<double> digits = new List<double>();
             foreach (char item in chars)
             {
@@ -118,9 +120,54 @@ namespace Kottans_CreditCardOperator
             else return false;
         }
 
+        public bool IsCreditCardNumberValid1(string goodInput)
+        {
+            double doubled;
+            double sumTotal = 0;
+
+            char[] chars = goodInput.ToCharArray();
+
+            List<double> digits = new List<double>();
+            foreach (char item in chars)
+            {
+                double d = char.GetNumericValue(item);
+                digits.Add(d);
+            }
+            for (int i = digits.Count - 1; i >= 0; i--)
+            {
+                // 1010 1010 1010 1010
+                // 1 - must be doubled 
+                // 0 - left unchanged
+                //for 0
+                if ((i % 2) == 1)
+                {
+                    sumTotal = sumTotal + digits[i];
+                }
+                //for 1
+                else
+                {
+                    if ((digits[i] * 2) > 9)
+                    {
+                        doubled = ((digits[i] * 2) - 9);
+                        sumTotal = sumTotal + doubled;
+                    }
+                    else
+                    {
+                        sumTotal = sumTotal + digits[i] * 2;
+                    }
+                }
+
+            }
+            if ((sumTotal % 10) == 0)
+            {
+                return true;
+            }
+            else return false;
+        }
+
         public string GetValidationResult(string goodInput)
         {
-            if (IsCreditCardNumberValid(goodInput) == true)
+            if (IsCreditCardNumberValid1(goodInput) == true)
             {
                 return "Congrats, dude! That's a valid card number!";
             }
@@ -141,7 +188,8 @@ namespace Kottans_CreditCardOperator
                     isValid = true;
                 }
             }
-            return GetCodeFormatted(inputNumeric.ToString());
+            return inputNumeric.ToString();
+                //GetCodeFormatted(inputNumeric.ToString());
 
         }
 

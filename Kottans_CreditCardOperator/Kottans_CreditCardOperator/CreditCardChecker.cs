@@ -71,9 +71,10 @@ namespace Kottans_CreditCardOperator
             double sumTotal = 0;
         
             char[] chars = goodInput.ToCharArray();
+            char[] charReversed = chars.Reverse().ToArray();
            
             List<double> digits = new List<double>();
-            foreach (char item in chars)
+            foreach (char item in charReversed)
             {
                 double d = char.GetNumericValue(item);
                 digits.Add(d);
@@ -84,7 +85,7 @@ namespace Kottans_CreditCardOperator
                 // 1 - must be doubled 
                 // 0 - left unchanged
                 //for 0
-                if ((i % 2) == 1)
+                if ((i % 2) == 0)
                 {
                     sumTotal = sumTotal + digits[i];
                 }

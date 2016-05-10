@@ -20,8 +20,6 @@ namespace Kottans_CreditCardOperator
             string cardVendorCheck = CCChecker.GetCreditCardVendor(goodInput);
             Console.WriteLine(cardVendorCheck);
 
-            Console.WriteLine(CCChecker.GetValidationResult(goodInput));
-
             Console.WriteLine("Next valid credit card number is: " + CCChecker.GenerateNextCreditCardNumber(goodInput));
             Console.ReadLine();
         }

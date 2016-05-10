@@ -12,15 +12,16 @@ namespace Kottans_CreditCardOperator
         {
             Console.WriteLine("Enter your credit card number here: ");
             string input = Console.ReadLine();
-            string goodInput = input.Trim().Replace(" ", string.Empty).Replace("\"",string.Empty);
+           
 
             CreditCardChecker CCChecker = new CreditCardChecker();
             // Validate code acc to Lunh
+            Console.WriteLine(CCChecker.IsCreditCardNumberValid(input));
 
-            string cardVendorCheck = CCChecker.GetCreditCardVendor(goodInput);
+            string cardVendorCheck = CCChecker.GetCreditCardVendor(input);
             Console.WriteLine(cardVendorCheck);
 
-            Console.WriteLine("Next valid credit card number is: " + CCChecker.GenerateNextCreditCardNumber(goodInput));
+            Console.WriteLine("Next valid credit card number is: " + CCChecker.GenerateNextCreditCardNumber(input));
             Console.ReadLine();
         }
 

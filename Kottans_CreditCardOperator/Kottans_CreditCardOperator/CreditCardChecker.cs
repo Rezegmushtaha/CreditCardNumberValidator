@@ -10,14 +10,15 @@ namespace Kottans_CreditCardOperator
     {
         //Lenght -- American Express(15); Maestro(12-19); MasterCard(16); VISA(13,16,19); JCB(16)
 
-        public string GetCreditCardVendor(string goodInput)
+        public string GetCreditCardVendor(string input)
         {
+            string goodInput = input.Trim().Replace(" ", string.Empty).Replace("\"", string.Empty);
             int inputLength = goodInput.Length;
             int[] maestroArray = { 50, 56, 57, 58, 59, 6 }; //50, 56-69
             int[] masterCardArray = { 2221, 2222, 2223, 2224, 2225, 2226, 2227, 2228, 2229, 23, 24, 25, 26, 270, 271, 2720, 51, 52, 53, 54, 55 }; //2221 - 2720; 51-55
             int[] jcbArray = { 3528, 3529, 353, 354, 355, 356, 357, 358 }; //3528-3589
 
-            if (GetValidationResult(goodInput).Contains("Congrats"))
+            if ((IsCreditCardNumberValid(goodInput) == true))
             {
 
                 // Maestro 50, 56-69
@@ -65,8 +66,9 @@ namespace Kottans_CreditCardOperator
             }
         }
 
-        public bool IsCreditCardNumberValid(string goodInput)
+        public bool IsCreditCardNumberValid(string input)
         {
+            string goodInput = input.Trim().Replace(" ", string.Empty).Replace("\"", string.Empty);
             double doubled;
             double sumTotal = 0;
         
@@ -74,6 +76,7 @@ namespace Kottans_CreditCardOperator
             char[] charReversed = chars.Reverse().ToArray();
            
             List<double> digits = new List<double>();
+
             foreach (char item in charReversed)
             {
                 double d = char.GetNumericValue(item);
@@ -111,78 +114,27 @@ namespace Kottans_CreditCardOperator
             else return false;
         }
 
-        public bool IsCreditCardNumberValid1(string goodInput)
+        public string GenerateNextCreditCardNumber(string input)
         {
-            double doubled;
-            double sumTotal = 0;
-
-            char[] chars = goodInput.ToCharArray();
-
-            List<double> digits = new List<double>();
-            char[] charReverted = chars.Reverse().ToArray();
-             
-            foreach (char item in charReverted)
+            string goodInput = input.Trim().Replace(" ", string.Empty).Replace("\"", string.Empty);
+            if ((IsCreditCardNumberValid(goodInput) == true))
             {
-                double d = char.GetNumericValue(item);
-                digits.Add(d);
-            }
-            for (int i = digits.Count - 1; i >= 0; i--)
-            {
-                // 1010 1010 1010 1010
-                // 1 - must be doubled 
-                // 0 - left unchanged
-                //for 0
-                if ((i % 2) == 0)
+                bool isValid = false;
+                Int64 inputNumeric = Int64.Parse(goodInput);
+                while (isValid == false)
                 {
-                    sumTotal = sumTotal + digits[i];
-                }
-                //for 1
-                else
-                {
-                    if ((digits[i] * 2) > 9)
+                    inputNumeric++;
+                    if ((IsCreditCardNumberValid(goodInput) == true))
                     {
-                        doubled = ((digits[i] * 2) - 9);
-                        sumTotal = sumTotal + doubled;
-                    }
-                    else
-                    {
-                        sumTotal = sumTotal + digits[i] * 2;
+                        isValid = true;
                     }
                 }
-
-            }
-            if ((sumTotal % 10) == 0)
-            {
-                return true;
-            }
-            else return false;
-        }
-
-        public string GetValidationResult(string goodInput)
-        {
-            if (IsCreditCardNumberValid1(goodInput) == true)
-            {
-                return "Congrats, dude! That's a valid card number!";
+                return inputNumeric.ToString();
             }
             else
             {
-                return "Sorry looks like you've got an invalid credit card number. Double check the value you've entered.";
+                return string.Empty;
             }
-        }
-        public string GenerateNextCreditCardNumber(string goodInput)
-        {
-            bool isValid = false;
-            Int64 inputNumeric = Int64.Parse(goodInput);
-            while (isValid == false)
-            {
-                inputNumeric++;
-                if (GetValidationResult(inputNumeric.ToString()).Contains("Congrats"))
-                {
-                    isValid = true;
-                }
-            }
-            return inputNumeric.ToString();
-                //GetCodeFormatted(inputNumeric.ToString());
 
         }
 

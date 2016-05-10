@@ -8,10 +8,52 @@ namespace Kottans_CreditCardOperator_Tests
     public class CreditCardCheckerTests
     {
         [TestMethod]
+        public void IsCreditCardNumberValid_ValidVisaNumber_Success()
+        {
+            CreditCardChecker ccchecker = new CreditCardChecker();
+            bool result = ccchecker.IsCreditCardNumberValid("3411 3411 3411 347");
+            Assert.IsTrue(result);
+        }
+        [TestMethod]
         public void IsCreditCardNumberValid_ValidNumber_Success()
         {
             CreditCardChecker ccchecker = new CreditCardChecker();
-            bool result = ccchecker.IsCreditCardNumberValid("341134113411347");
+            bool result = ccchecker.IsCreditCardNumberValid("3434 3434 3434 343");
+            Assert.IsTrue(result);
+        }
+        [TestMethod]
+        public void IsCreditCardNumberValid_ValidJcbNumber_Success()
+        {
+            CreditCardChecker ccchecker = new CreditCardChecker();
+            bool result = ccchecker.IsCreditCardNumberValid("3530 1113 3330 0000");
+            Assert.IsTrue(result);
+        }
+        [TestMethod]
+        public void IsCreditCardNumberValid_ValidJcbNumber2_Success()
+        {
+            CreditCardChecker ccchecker = new CreditCardChecker();
+            bool result = ccchecker.IsCreditCardNumberValid("3566 0020 2036 0505");
+            Assert.IsTrue(result);
+        }
+        [TestMethod]
+        public void IsCreditCardNumberValid_ValidAmExpNumber_Success()
+        {
+            CreditCardChecker ccchecker = new CreditCardChecker();
+            bool result = ccchecker.IsCreditCardNumberValid("4111 1111 1111 1111");
+            Assert.IsTrue(result);
+        }
+        [TestMethod]
+        public void IsCreditCardNumberValid_ValidAmExprNumber2_Success()
+        {
+            CreditCardChecker ccchecker = new CreditCardChecker();
+            bool result = ccchecker.IsCreditCardNumberValid("4222 2222 2222 2");
+            Assert.IsTrue(result);
+        }
+        [TestMethod]
+        public void IsCreditCardNumberValid_ValidNumber2_Success()
+        {
+            CreditCardChecker ccchecker = new CreditCardChecker();
+            bool result = ccchecker.IsCreditCardNumberValid("5105 1051 0510 5100");
             Assert.IsTrue(result);
         }
     }

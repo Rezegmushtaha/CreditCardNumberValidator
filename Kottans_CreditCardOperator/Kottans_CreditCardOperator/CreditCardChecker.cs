@@ -18,7 +18,7 @@ namespace Kottans_CreditCardOperator
             int[] masterCardArray = { 2221, 2222, 2223, 2224, 2225, 2226, 2227, 2228, 2229, 23, 24, 25, 26, 270, 271, 2720, 51, 52, 53, 54, 55 }; //2221 - 2720; 51-55
             int[] jcbArray = { 3528, 3529, 353, 354, 355, 356, 357, 358 }; //3528-3589
 
-            if ((IsCreditCardNumberValid(goodInput) == true))
+            if ((IsCreditCardLunhValid(goodInput) == true))
             {
 
                 // Maestro 50, 56-69
@@ -66,15 +66,15 @@ namespace Kottans_CreditCardOperator
             }
         }
 
-        public bool IsCreditCardNumberValid(string input)
+        public bool IsCreditCardLunhValid(string input)
         {
             string goodInput = input.Trim().Replace(" ", string.Empty).Replace("\"", string.Empty);
             double doubled;
             double sumTotal = 0;
-        
+
             char[] chars = goodInput.ToCharArray();
             char[] charReversed = chars.Reverse().ToArray();
-           
+
             List<double> digits = new List<double>();
 
             foreach (char item in charReversed)
@@ -107,7 +107,17 @@ namespace Kottans_CreditCardOperator
                 }
 
             }
-            if ((sumTotal % 10) == 0)
+            if (((sumTotal % 10) == 0))
+            {
+                return true;
+            }
+            else return false;
+        }
+
+        public bool IsCreditCardNumberValid(string input)
+        {
+           
+            if (((IsCreditCardLunhValid(input) == true)) && ((GetCreditCardVendor(input)) != "Unknown"))
             {
                 return true;
             }
